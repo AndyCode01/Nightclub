@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nightclub.Context;
 
@@ -11,9 +12,11 @@ using Nightclub.Context;
 namespace Nigthclub.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240227234301_FixCompleteDatabaseDesign")]
+    partial class FixCompleteDatabaseDesign
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,14 +166,9 @@ namespace Nigthclub.Migrations
                     b.Property<int>("assistant_Id_assistant")
                         .HasColumnType("int");
 
-                    b.Property<int>("event_Id_event")
-                        .HasColumnType("int");
-
                     b.HasKey("Id_event_artist");
 
                     b.HasIndex("assistant_Id_assistant");
-
-                    b.HasIndex("event_Id_event");
 
                     b.ToTable("Event_Artists");
                 });
@@ -186,17 +184,12 @@ namespace Nigthclub.Migrations
                     b.Property<int>("assistant_Id_assistant")
                         .HasColumnType("int");
 
-                    b.Property<int>("event_Id_event")
-                        .HasColumnType("int");
-
                     b.Property<int>("rol_Id_type_rol")
                         .HasColumnType("int");
 
                     b.HasKey("Id_event_assistant");
 
                     b.HasIndex("assistant_Id_assistant");
-
-                    b.HasIndex("event_Id_event");
 
                     b.HasIndex("rol_Id_type_rol");
 
@@ -308,15 +301,7 @@ namespace Nigthclub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Nightclub.Models.Event", "event_")
-                        .WithMany()
-                        .HasForeignKey("event_Id_event")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("assistant_");
-
-                    b.Navigation("event_");
                 });
 
             modelBuilder.Entity("Nightclub.Models.Event_assistant", b =>
@@ -327,12 +312,6 @@ namespace Nigthclub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Nightclub.Models.Event", "event_")
-                        .WithMany()
-                        .HasForeignKey("event_Id_event")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Nightclub.Models.Type_rol", "rol_")
                         .WithMany("event_Assistants")
                         .HasForeignKey("rol_Id_type_rol")
@@ -340,8 +319,6 @@ namespace Nigthclub.Migrations
                         .IsRequired();
 
                     b.Navigation("assistant_");
-
-                    b.Navigation("event_");
 
                     b.Navigation("rol_");
                 });
