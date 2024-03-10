@@ -11,5 +11,7 @@ namespace Nightclub.Models
         [Key] public required int Id_type_document {get; set;}
         public required string name_type_document {get; set;}
         public List<Client> client{ get; set; }
+        public List<Assistant> assistant{ get; set; }
+        public List<Artist> artist{ get; set; }
     }
 }

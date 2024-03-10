@@ -10,6 +10,7 @@ namespace Nightclub.Models
     {
       [Key] public required int Id_event_artist { get; set; }
       public Event event_ { get; set; }
-      public Assistant assistant_ { get; set; }
+      public Artist artist_ { get; set; }
+      
     }
 }
