@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nightclub.Context;
 
@@ -11,9 +12,11 @@ using Nightclub.Context;
 namespace Nigthclub.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240310152308_Version1")]
+    partial class Version1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +146,7 @@ namespace Nigthclub.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_event_artist"));
 
-                    b.Property<int>("artist_Id_artist")
+                    b.Property<int>("assistant_Id_assistant")
                         .HasColumnType("int");
 
                     b.Property<int>("event_Id_event")
@@ -151,7 +154,7 @@ namespace Nigthclub.Migrations
 
                     b.HasKey("Id_event_artist");
 
-                    b.HasIndex("artist_Id_artist");
+                    b.HasIndex("assistant_Id_assistant");
 
                     b.HasIndex("event_Id_event");
 
@@ -285,9 +288,9 @@ namespace Nigthclub.Migrations
 
             modelBuilder.Entity("Nightclub.Models.Event_artist", b =>
                 {
-                    b.HasOne("Nightclub.Models.Artist", "artist_")
-                        .WithMany("event_Artists")
-                        .HasForeignKey("artist_Id_artist")
+                    b.HasOne("Nightclub.Models.Assistant", "assistant_")
+                        .WithMany()
+                        .HasForeignKey("assistant_Id_assistant")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -297,7 +300,7 @@ namespace Nigthclub.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("artist_");
+                    b.Navigation("assistant_");
 
                     b.Navigation("event_");
                 });
@@ -305,7 +308,7 @@ namespace Nigthclub.Migrations
             modelBuilder.Entity("Nightclub.Models.Event_assistant", b =>
                 {
                     b.HasOne("Nightclub.Models.Assistant", "assistant_")
-                        .WithMany("event_Assistants")
+                        .WithMany()
                         .HasForeignKey("assistant_Id_assistant")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -346,16 +349,6 @@ namespace Nigthclub.Migrations
                     b.Navigation("client_");
 
                     b.Navigation("event_");
-                });
-
-            modelBuilder.Entity("Nightclub.Models.Artist", b =>
-                {
-                    b.Navigation("event_Artists");
-                });
-
-            modelBuilder.Entity("Nightclub.Models.Assistant", b =>
-                {
-                    b.Navigation("event_Assistants");
                 });
 
             modelBuilder.Entity("Nightclub.Models.Client", b =>
