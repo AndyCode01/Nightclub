@@ -12,7 +12,6 @@ namespace Nightclub.Context
         
         public DbSet<Type_document> Type_documents {get; set;}
         public DbSet<Type_rol> Type_Rols {get; set;}
-        public DbSet<Assistant_role> Assistant_roles {get; set;}
         public DbSet<Client> Clients {get; set;}
         public DbSet<Artist> Artists {get; set;}
         public DbSet<Assistant> Assistants {get; set;}
